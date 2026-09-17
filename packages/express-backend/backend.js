@@ -1,8 +1,10 @@
 import express from "express";
+import cors from "cors";
 
 const app = express();
 const port = 8000;
 
+app.use(cors());
 app.use(express.json());
 
 const users = {
@@ -72,16 +74,6 @@ app.get("/users", (req, res) => {
   }
 });
 
-app.post("/users", (req, res) => {
-  const userToAdd = req.body;
-  addUser(userToAdd);
-  res.status(201).send(userToAdd);
-});
-
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
-
 const addUser = (user) => {
   users.users_list.push(user);
   return user;
@@ -104,4 +96,8 @@ app.delete("/users/:id", (req, res) => {
 
   users.users_list.splice(index, 1);
   res.send();
+});
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });
