@@ -100,7 +100,7 @@ app.delete("/users/:id", (req, res) => {
   }
 
   users.users_list.splice(index, 1);
-  res.send();
+  res.status(204).send();
 });
 
 app.listen(port, () => {

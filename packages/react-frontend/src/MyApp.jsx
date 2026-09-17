@@ -31,12 +31,23 @@ function MyApp() {
   return promise;
 }
   
-    function removeOneCharacter(index) {
-      const updated = characters.filter((character, i) => {
-        return i !== index;
-      });
-      setCharacters(updated);
-    }
+    function removeOneCharacter(id) {
+  fetch(`http://localhost:8000/users/${id}`, {
+    method: "DELETE",
+  })
+    .then((res) => {
+      if (res.status !== 204) {
+        throw new Error(`Expected status 204, received ${res.status}`);
+      }
+
+      setCharacters((currentCharacters) =>
+        currentCharacters.filter((character) => character.id !== id)
+      );
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
     function updateList(person) {
   postUser(person)
