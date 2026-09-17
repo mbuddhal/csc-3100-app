@@ -18,6 +18,18 @@ function MyApp() {
       console.log(error);
     });
 }, []);
+
+  function postUser(person) {
+  const promise = fetch("http://localhost:8000/users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(person),
+  });
+
+  return promise;
+}
   
     function removeOneCharacter(index) {
       const updated = characters.filter((character, i) => {
@@ -27,8 +39,20 @@ function MyApp() {
     }
 
     function updateList(person) {
-        setCharacters([...characters, person]);
-    }
+  postUser(person)
+    .then((res) => {
+      if (res.status !== 201) {
+        throw new Error(`Expected status 201, received ${res.status}`);
+      }
+      return res.json();
+    })
+    .then((json) => {
+      setCharacters([...characters, json]);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
     return (
         <div className="container">
