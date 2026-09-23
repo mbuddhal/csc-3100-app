@@ -41,7 +41,7 @@ function MyApp() {
       }
 
       setCharacters((currentCharacters) =>
-        currentCharacters.filter((character) => character.id !== _id)
+        currentCharacters.filter((character) => character._id !== _id)
       );
     })
     .catch((error) => {
