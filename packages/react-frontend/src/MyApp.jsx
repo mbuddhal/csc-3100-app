@@ -31,8 +31,8 @@ function MyApp() {
   return promise;
 }
   
-    function removeOneCharacter(id) {
-  fetch(`http://localhost:8000/users/${id}`, {
+    function removeOneCharacter(_id) {
+  fetch(`http://localhost:8000/users/${_id}`, {
     method: "DELETE",
   })
     .then((res) => {
@@ -41,7 +41,7 @@ function MyApp() {
       }
 
       setCharacters((currentCharacters) =>
-        currentCharacters.filter((character) => character.id !== id)
+        currentCharacters.filter((character) => character.id !== _id)
       );
     })
     .catch((error) => {
